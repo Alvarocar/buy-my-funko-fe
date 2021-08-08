@@ -7,8 +7,8 @@ export default defineConfig({
   base: '/buy-my-funko-fe/',
   plugins: [vue()],
   resolve: {
-    alias:{
-      '@/' : path.resolve(__dirname, './src')
+    alias: {
+      '@': path.resolve(__dirname, './src'),
     },
   }
 })

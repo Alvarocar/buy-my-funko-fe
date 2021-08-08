@@ -1,4 +1,3 @@
-
 <template>
   <main-layout >
     <main class="content">
@@ -89,8 +88,8 @@
 
 <script>
 import { defineComponent } from 'vue'
-import MainLayout from '../layouts/MainLayout.vue'
-import titles from '../constants/titles'
+import MainLayout from '@/layouts/MainLayout.vue'
+import titles from '@/constants/titles'
 export default defineComponent({
   name: 'Home',
   setup() {
