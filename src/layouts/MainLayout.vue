@@ -30,9 +30,7 @@
 
 <script>
 export default {
-  setup() {
-    
-  },
+  name: 'MainLayout'
 }
 </script>
 
