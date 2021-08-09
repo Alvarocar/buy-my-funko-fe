@@ -1,6 +1,5 @@
-
 <template>
-  <main-layout >
+  <main-layout>
     <main class="content">
       <article class="card">
         <router-link to="/">
@@ -89,8 +88,8 @@
 
 <script>
 import { defineComponent } from 'vue'
-import MainLayout from '../layouts/MainLayout.vue'
-import titles from '../constants/titles'
+import MainLayout from '@/layouts/MainLayout.vue'
+import titles from '@/constants/titles'
 export default defineComponent({
   name: 'Home',
   setup() {
