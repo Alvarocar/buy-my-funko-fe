@@ -1,5 +1,5 @@
 <template>
-  <main-layout >
+  <main-layout>
     <main class="content">
       <article class="card">
         <router-link to="/">
