@@ -3,7 +3,9 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]
-    }
+    },
+    "checkJs": true
   },
-  "include": ["src/**/*.vue", "src/**/*"]
+  "include": ["src/**/*.vue", "src/**/*"],
+  "exclude": ["node_modules", "**/node_modules/*"]
 }
