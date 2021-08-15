@@ -9,7 +9,7 @@ export default  class ProductRepository {
   /**
    * The method return a paginated product list.
    * @param {number} page number of the page (start in zero).
-   * @param {{limit: number}} [config] config params.
+   * @param {{limit: number}} config config params.
    * 
    * @returns {Promise<import('@/model/product').ProductDto[]>} a product list.
    * @throws {Error} If there is a network error.
