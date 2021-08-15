@@ -1,45 +1,47 @@
 <template>
-  <div class="content">
-    <article :key="product.id" v-for="product in products">
-      <card-products :product="product"/>
-    </article>
-  </div>
-  <el-pagination
-    :page-count="pageCount"
-    layout="prev, pager, next"
-    class="pagination"
-    @current-change="changePage"
-    />
+    <div class="content" :key="product.id" v-for="product in products">
+      <article class="card">
+        <router-link to="/">
+          <img :src="product.image"/>
+          <figcaption>
+            <p class="title">{{product.title}}</p>
+            <span class="price">$ {{product.price}}</span>
+          </figcaption>
+        </router-link>
+      </article>
+    </div>
 </template>
 <script>
+import { defineComponent, onMounted } from 'vue'
+import { mapActions, mapState, useStore } from 'vuex'
 
-import { defineComponent} from 'vue'
-import { mapActions, mapState} from 'vuex'
-import CardProducts from '@/components/cards/CardProducts.vue'
 export default defineComponent({
-  components: { CardProducts },
    name:'ProductList',
-       mounted(){
+  setup(){
+    const {state} = useStore() 
+    console.log(state)
+    // /**
+    //  * @param {number} page
+    //  */
+    // const fetchProducts = (page)=>{
+    //   dispatch('product/getProducts', page)
+    // }
+    // onMounted(()=>{fetchProducts(0),
+    // console.log('mountedddd');
+    // }
+    // )
+  },
+  mounted(){
     this.getProducts(0)
   },
   methods:{
     ...mapActions ('product',[
       'getProducts'
-    ]),
-    /**
-     * The method send getProducts action to
-     * products module in the store.
-     * @param {number} page
-     * @returns {void}
-     */
-    changePage(page) {
-      this.getProducts(page-1)
-    }
+    ])
   },
    computed: {
-     ...mapState('product',{ 
-       products:(state)=> state.products,
-       pageCount: (state) => state.pageCount
+     ...mapState('product',{
+       products:(state)=> state.product.products
      })
    }
 })
@@ -53,11 +55,32 @@ export default defineComponent({
     column-gap: 1rem;
     row-gap: 1rem;
     padding: 1rem;
-    & > .article {
-      margin: 0 auto;
-    }
   }
-  .pagination {
-    margin: 1rem auto;
+
+  .card {
+    background-color: #fff;
+    padding: 0 0 2rem;
+    border-radius: 10px;
+    box-shadow: 2px 0px 10px #9E9E9E;
+    & img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px 10px 0 0;
+    }
+    & a {
+      text-decoration: none;
+      color: #212121;
+      &:hover {
+        opacity: .8;
+      }
+    }
+    & .title {
+      opacity: .7;
+      font-size: .85rem;
+    }
+    & .price {
+      font-weight: bolder;
+      font-size: 1.2rem;
+    }
   }
 </style>
