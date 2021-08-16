@@ -1,19 +1,38 @@
 <template>
     <nav>
         <ul class="categories">
-            <li><router-link to="/">Marvel</router-link></li>
-            <li><router-link to="/">DC</router-link></li>
-            <li><router-link to="/">Star Wars</router-link></li>
-            <li><router-link to="/">Juegos</router-link></li>
-            <li><router-link to="/">Anime</router-link></li>
+            <li><router-link :to="getCategoryLink(categories.MARVEL)">Marvel</router-link></li>
+            <li><router-link :to="getCategoryLink(categories.DC)">DC</router-link></li>
+            <li><router-link :to="getCategoryLink(categories.STAR_WARS)">Star Wars</router-link></li>
+            <li><router-link :to="getCategoryLink(categories.JUEGOS)">Juegos</router-link></li>
+            <li><router-link :to="getCategoryLink(categories.ANIME)">Anime</router-link></li>
         </ul>
     </nav>
 </template>
 <script>
+import ERoutes from '@/constants/ERoutes'
+import { ECategoryByProduct } from '@/model/product'
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-    name: 'CategoryNavbar',
+  name: 'CategoryNavbar',
+  data(){
+    return {
+      categories: ECategoryByProduct
+    }
+  },
+  methods: {
+    /**
+     * The recive de category name to returns an object to redirect
+     * to category page.
+     * @param {string} category category name
+     * @returns {{name: string, params: { category: string }}} 
+     * An Object to redirect to Category page.
+     */
+    getCategoryLink(category){
+      return { name: ERoutes.CATEGORY, params: { category } }
+    }
+  }
 })
 </script>
 <style lang="scss" scoped>
