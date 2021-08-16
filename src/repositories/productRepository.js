@@ -36,4 +36,37 @@ export default  class ProductRepository {
       throw new Error(err.message)
     }
   }
+
+  /**
+   * The method return a paginated product list.
+   * @param {number} page number of the page (start in zero).
+   * @param {string} category category name of the product.
+   * @param {{limit: number}} [config] config params.
+   * 
+   * @returns {Promise<import('@/model/product').ProductDto[]>} a product list.
+   * @throws {Error} If there is a network error.
+   * @throws {Error} If the page is negative.
+   */
+  async getProductsByCategory(page, category, config = { limit: 10} ){
+    try {
+      if (page < 0)
+      throw new Error('The page must be positive')
+      
+    const filteredData = data.filter( product => product.category === category );
+
+      const start = page*config.limit
+      /**
+       * @type {import('@/model/product').ProductDto[]}
+       */
+      let result = []
+      for (let i = 0; i < config.limit; i++) {
+        if (!filteredData[start+i])
+          break
+        result = [...result, filteredData[start+i]];
+      }
+      return result
+    } catch (err) {
+      throw new Error(err.message)
+    }
+  }
 }

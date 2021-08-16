@@ -4,6 +4,7 @@ import ProductRepository from '@/repositories/productRepository'
  * @typedef {Object} ProductState
  * @property {'loading' | 'idle' | 'fail'} status
  * @property {import("@/model/product").ProductDto[]} products
+ * @property {import("@/model/product").ProductDto[]} productsFiltered Products filtered by Category
  */
 
 export default {
@@ -15,16 +16,15 @@ export default {
    */
   state: {
     status: 'idle',
-    products: []
+    products: [],
+    productsFiltered: []
   },
 
   /**
    * @type {import("vuex").ActionTree<ProductState>}
    */
   actions: {
-    /**
-     * type {number} payload 
-     */
+   
     async getProducts ( { commit } , /**@type {number}*/ payload ) {
       const repo = new ProductRepository()
       try {
@@ -32,6 +32,18 @@ export default {
         commit('setProducts', products)
       } catch (error) {
        throw new Error(error.message)
+      }
+    },
+
+    async getProductsByCategory({ commit },
+       /**@type {{page: number, category: string}}*/ payload) {
+
+      const repo = new ProductRepository()
+      try {
+        const products = await repo.getProductsByCategory(payload.page, payload.category)
+        commit('setProductsFiltered', products)
+      } catch (error) {
+        throw new Error(error.message)
       }
     }
   },
@@ -43,6 +55,10 @@ export default {
     setProducts (state,
       /**@type {import("@/model/product").ProductDto[]} */products){
       state.products = products
-    }
+    },
+    setProductsFiltered (state,
+      /**@type {import("@/model/product").ProductDto[]} */products){
+        state.productsFiltered = products
+      }
   }
 }
