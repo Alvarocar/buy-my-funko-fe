@@ -7,9 +7,9 @@
 </template>
 <script>
 
-import { defineComponent, onMounted } from 'vue'
-import { mapActions, mapState, useStore } from 'vuex'
-import CardProducts from '../cards/CardProducts.vue'
+import { defineComponent} from 'vue'
+import { mapActions, mapState} from 'vuex'
+import CardProducts from '@/components/cards/CardProducts.vue'
 export default defineComponent({
   components: { CardProducts },
    name:'ProductList',
