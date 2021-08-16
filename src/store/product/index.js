@@ -1,5 +1,4 @@
 import ProductRepository from '@/repositories/productRepository'
-import { createStore } from 'vuex'
 
 /**
  * @typedef {Object} ProductState
@@ -7,17 +6,26 @@ import { createStore } from 'vuex'
  * @property {import("@/model/product").ProductDto[]} products
  */
 
-const productStore = createStore({
-  state:()=> ({
+export default {
+  
+  namespaced: true,
+  
+  /**
+   * @type {ProductState} initialState
+   */
+  state: {
     status: 'idle',
     products: []
-  }),
+  },
 
+  /**
+   * @type {import("vuex").ActionTree<ProductState>}
+   */
   actions: {
     /**
      * type {number} payload 
      */
-    async getProducts ( {commit}, payload ) {
+    async getProducts ( { commit } , /**@type {number}*/ payload ) {
       const repo = new ProductRepository()
       try {
         const products = await repo.getProducts(payload)
@@ -28,11 +36,13 @@ const productStore = createStore({
     }
   },
 
+  /**
+   * @type {import("vuex").MutationTree<ProductState>}
+   */
   mutations:{
-    setProducts (state, products){
+    setProducts (state,
+      /**@type {import("@/model/product").ProductDto[]} */products){
       state.products = products
     }
   }
-})
-
-export default productStore
+}
