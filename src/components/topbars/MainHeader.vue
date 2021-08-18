@@ -7,11 +7,8 @@
         </router-link>
       </div>
       <div class="header-top-right">
-        <div>
-          <input type="search" />
-          <button>search</button>
-        </div>
-        <button>Carrito</button>
+        <search-input />
+        <button class="cart-button" ><span class="cart-icon"><i class="fas fa-shopping-cart"></i></span></button>
       </div>
     </div>
     <categories-navbar/>
@@ -20,9 +17,10 @@
 <script>
 import CategoriesNavbar from '@/components/navbars/CategoriesNavbar.vue'
 import { defineComponent } from 'vue'
+import SearchInput from '@/components/forms/SearchInput.vue'
 
 export default defineComponent({
-  components: { CategoriesNavbar },
+  components: { CategoriesNavbar, SearchInput },
     name: 'MainHeader',
 })
 </script>
@@ -38,11 +36,26 @@ export default defineComponent({
       align-items: center;
       & .header-top-right{
         display: flex;
-        justify-content: space-around;
+        justify-content: flex-end;
+        gap: 2rem;
         width: 20rem;
+        .cart-button {
+          padding: 0 .8rem;
+          border:none;
+          border-radius: 10px;
+          background-color: #9CCC65;
+          &:hover {
+            background-color: #4CAF50;
+            transition: .5s;
+          }
+          .cart-icon {
+            color: #fff;
+            font-size: 1.5rem;
+          }
+        }
       }
       .header-top-left {
-        width: 12rem;
+        width: 10rem;
         & img {
           width: 100%;
           height: auto;
