@@ -11,7 +11,8 @@ export default  class ProductRepository {
    * @param {number} page number of the page (start in zero).
    * @param {{limit: number}} [config] config params.
    * 
-   * @returns {Promise<import('@/model/product').ProductDto[]>} a product list.
+   * @returns {Promise<{products: import('@/model/product').ProductDto[], pageCount: number}>} a product list with
+   * total pages avalibles.
    * @throws {Error} If there is a network error.
    * @throws {Error} If the page is negative.
    */
@@ -25,25 +26,27 @@ export default  class ProductRepository {
       /**
        * @type {import('@/model/product').ProductDto[]}
        */
-      let result = []
+      let products = []
       for (let i = 0; i < config.limit; i++) {
         if (!data[start+i])
           break
-        result = [...result, data[start+i]];
+        products = [...products, data[start+i]];
       }
-      return result
+      const pageCount = Math.ceil(data.length / config.limit)
+      return { products, pageCount }
     } catch (err) {
       throw new Error(err.message)
     }
   }
 
   /**
-   * The method return a paginated product list.
+   * The method return a paginated product list by category.
    * @param {number} page number of the page (start in zero).
    * @param {string} category category name of the product.
    * @param {{limit: number}} [config] config params.
    * 
-   * @returns {Promise<import('@/model/product').ProductDto[]>} a product list.
+   * @returns {Promise<{products: import('@/model/product').ProductDto[], pageCount: number}>} a product list with
+   * total pages avalibles.
    * @throws {Error} If there is a network error.
    * @throws {Error} If the page is negative.
    */
@@ -58,13 +61,14 @@ export default  class ProductRepository {
       /**
        * @type {import('@/model/product').ProductDto[]}
        */
-      let result = []
+      let products = []
       for (let i = 0; i < config.limit; i++) {
         if (!filteredData[start+i])
           break
-        result = [...result, filteredData[start+i]];
+        products = [...products, filteredData[start+i]];
       }
-      return result
+      const pageCount = Math.ceil(filteredData.length / config.limit)
+      return { products, pageCount }
     } catch (err) {
       throw new Error(err.message)
     }
