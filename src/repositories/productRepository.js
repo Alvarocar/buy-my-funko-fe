@@ -73,4 +73,23 @@ export default  class ProductRepository {
       throw new Error(err.message)
     }
   }
+  /**
+   * The method return a product by id.
+   * @param {number} id The id is the id of product selected.
+   * 
+   * @returns {Promise<{productDto: import('@/model/product').ProductDto}>} a product. 
+   * @throws {Error} If there is a network error.
+   * @throws {Error} If the id doesn't exist.
+   */
+  async getProductById(id){
+    try {
+      const productDto = data.find(product => product.id === id)
+      if (!productDto) {
+        throw new Error('Producto no encontrado')
+      }
+      return { productDto }
+    } catch (error) {
+      throw new Error(error.message)
+    }
+  }
 }

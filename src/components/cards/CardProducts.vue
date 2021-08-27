@@ -1,6 +1,6 @@
 <template>
     <div class="card">
-        <router-link to="/">
+        <router-link :to="getProductLink(product.id)">
             <img :src="product.image" />
             <figcaption>
                 <p class="title">{{ product.title }}</p>
@@ -10,6 +10,7 @@
     </div>
 </template>
 <script>
+import ERoutes from '@/constants/ERoutes'
 import { defineComponent } from 'vue'
 
 export default defineComponent({
@@ -28,6 +29,18 @@ export default defineComponent({
         type: Object,
       },
     },
+  methods: {
+    /**
+     * The receive the id product to returns an object to redirect
+     * to product page.
+     * @param {number} id of product
+     * @returns {{name: string, params: { id: number }}} 
+     * An Object to redirect to Product page.
+     */
+    getProductLink(id){
+      return { name: ERoutes.PRODUCT, params: { id } }
+    }
+  }
 })
 </script>
 <style lang="scss" scoped>

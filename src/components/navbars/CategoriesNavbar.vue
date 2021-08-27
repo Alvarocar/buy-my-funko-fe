@@ -23,8 +23,8 @@ export default defineComponent({
   },
   methods: {
     /**
-     * The recive de category name to returns an object to redirect
-     * to category page.
+     * The receive the category name to returns an object to redirect
+     * to the category page.
      * @param {string} category category name
      * @returns {{name: string, params: { category: string }}} 
      * An Object to redirect to Category page.

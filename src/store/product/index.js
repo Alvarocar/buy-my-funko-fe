@@ -7,8 +7,14 @@ import ProductRepository from '@/repositories/productRepository'
  * @property {import("@/model/product").ProductDto[]} productsFiltered Products filtered by Category
  * @property {number} pageCount Total pages for main products
  * @property {number} pageCountFiltered Total pages for products filtered by category
+ * @property {null | import("@/model/product").ProductDto} productSelected is a product that has been filtered by id
  */
 
+const statusState = {
+  idle: 'idle',
+  loading: 'loading',
+  fail: 'fail'
+}
 export default {
   
   namespaced: true,
@@ -21,7 +27,8 @@ export default {
     products: [],
     productsFiltered: [],
     pageCount: 0,
-    pageCountFiltered: 0
+    pageCountFiltered: 0,
+    productSelected: null
   },
 
   /**
@@ -51,7 +58,21 @@ export default {
       } catch (error) {
         throw new Error(error.message)
       }
-    }
+    },
+
+    async getProductById({commit},/** @type { number } id of the product */ payload){
+      const repo = new ProductRepository()
+      try {
+        commit('setStatus', statusState.loading)
+        const product = await repo.getProductById(payload)
+        commit('setProductSelected', product.productDto)
+        commit('setStatus', statusState.idle)
+      } catch (error) {
+        commit('setStatus', statusState.fail)
+        commit('setProductSelected', null)
+        throw new Error(error.message)
+      }
+    },
   },
 
   /**
@@ -71,6 +92,13 @@ export default {
     },
     setPageCountFiltered(state, /**@type {number} */ pageCount) {
       state.pageCountFiltered = pageCount
+    },
+    setProductSelected(state, /**@type {import("@/model/product").ProductDto | null}  */ product ){
+      state.productSelected = product
+    },
+    setStatus (state, /**@type {'loading' | 'idle' | 'fail'}*/status){
+      state.status = status
     }
+
   }
 }
