@@ -5,8 +5,8 @@
 </template>
 
 <script>
-import { defineComponent, onMounted } from 'vue'
-import { useStore } from 'vuex'
+import { defineComponent } from 'vue'
+import { mapActions, mapState } from 'vuex'
 
 export default defineComponent({
     name: 'ProductDetail',
@@ -19,15 +19,19 @@ export default defineComponent({
         type: String,
       },
     },
-    setup(props){
-
-      const { dispatch } = useStore('product') 
-      const fetchProductDetail = (id) => dispatch('getProductById', id)
-
-      onMounted(() =>{fetchProductDetail(props.id)})
+    methods: {
+      ...mapActions('product', [
+        'getProductById'
+      ])
+    },
+    beforeMount() {
+      this.getProductById(Number(this.id))
+    },
+    computed: {
+      ...mapState('product', {
+        product: 'productSelected'
+      })
     }
-  
-  
 })
 </script>
 
