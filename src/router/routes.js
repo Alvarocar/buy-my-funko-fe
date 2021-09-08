@@ -9,5 +9,10 @@ export const routes = [
     path: '/category/:category',
     component: () => import('@/pages/Category.vue'),
     name: 'Category'
+  },
+  {
+    path: '/product/:id',
+    component: () => import('@/pages/Product.vue'),
+    name: 'Product'
   }
 ]

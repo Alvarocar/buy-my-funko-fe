@@ -1,21 +1,16 @@
 <template>
-  <div class="content">
-    <article :key="product.id" v-for="product in products">
-      <card-products :product="product"/>
-    </article>
-  </div>
-  <el-pagination
-    :page-count="pageCount"
-    layout="prev, pager, next"
-    class="pagination"
-    @current-change="changePage"
-    />
+    <div class="content">
+      <article :key="product.id" v-for="product in products">
+         <card-products :product="product"/>
+      </article>
+    </div>
 </template>
 <script>
 
 import { defineComponent} from 'vue'
 import { mapActions, mapState} from 'vuex'
 import CardProducts from '@/components/cards/CardProducts.vue'
+
 export default defineComponent({
   components: { CardProducts },
    name:'ProductList',
@@ -25,21 +20,11 @@ export default defineComponent({
   methods:{
     ...mapActions ('product',[
       'getProducts'
-    ]),
-    /**
-     * The method send getProducts action to
-     * products module in the store.
-     * @param {number} page
-     * @returns {void}
-     */
-    changePage(page) {
-      this.getProducts(page-1)
-    }
+    ])
   },
    computed: {
      ...mapState('product',{ 
-       products:(state)=> state.products,
-       pageCount: (state) => state.pageCount
+       products:(state)=> state.products
      })
    }
 })
@@ -53,11 +38,5 @@ export default defineComponent({
     column-gap: 1rem;
     row-gap: 1rem;
     padding: 1rem;
-    & > .article {
-      margin: 0 auto;
-    }
-  }
-  .pagination {
-    margin: 1rem auto;
   }
 </style>

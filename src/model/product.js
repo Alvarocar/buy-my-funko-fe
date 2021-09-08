@@ -5,6 +5,7 @@
 /**
  * @typedef {Object} ProductDto
  * @property {string} title The title or name of the product.
+ * @property {string} description of the product.
  * @property {string} price The price of the product.
  * @property {string} image The url image of the product.
  * @property {number} id The id of the product.

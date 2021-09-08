@@ -1,16 +1,17 @@
 <template>
-    <div class="card">
-        <router-link to="/">
-            <img :src="product.image" />
-            <figcaption>
-                <p class="title">{{ product.title }}</p>
-                <span class="price">$ {{ product.price }}</span>
-            </figcaption>
-        </router-link>
+  <div class="card">
+     <router-link :to="getProductLink(product.id)">
+      <img :src="product.image" />
+      <figcaption>
+        <p class="title">{{ product.title }}</p>
+        <span class="price">$ {{ product.price }}</span>
+      </figcaption>
+       </router-link>
     </div>
 </template>
 <script>
 import { defineComponent } from 'vue'
+import ERoutes from '@/constants/ERoutes'
 
 export default defineComponent({
     name: 'CardProduct',
@@ -28,6 +29,19 @@ export default defineComponent({
         type: Object,
       },
     },
+    methods:{
+      
+     /**
+     * The receive the id product to returns an object to redirect
+     * to product page.
+     * @param {number} id of product
+     * @returns {{name: string, params: { id: number }}} 
+     * An Object to redirect to Product page.
+     */
+    getProductLink(id){
+      return { name: ERoutes.PRODUCT, params: { id } }
+    }
+    }
 })
 </script>
 <style lang="scss" scoped>
@@ -41,18 +55,21 @@ export default defineComponent({
         height: auto;
         border-radius: 10px 10px 0 0;
     }
-    & a {
-        text-decoration: none;
-        color: #212121;
-        &:hover {
-            opacity: 0.8;
-        }
+    &
+       a {
+      text-decoration: none;
+      color: #212121;
+      &:hover {
+          opacity: 0.8;
+      }
     }
     & .title {
+        color: #212121;
         opacity: 0.7;
         font-size: 0.85rem;
     }
-    & .price {
+    & .price {        
+        color: #212121;
         font-weight: bolder;
         font-size: 1.2rem;
     }
