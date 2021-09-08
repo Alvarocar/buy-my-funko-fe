@@ -1,7 +1,7 @@
 <template>
   <main-layout>
-    <main class="container">
-      <product-detail :id="id"/>
+    <main class="container"> 
+      <product-detail :id="id" />
     </main>
   </main-layout>
 </template>

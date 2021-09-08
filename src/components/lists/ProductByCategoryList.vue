@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <article :key="product.id" v-for="product in products">
-      <card-products :product="product"/>
+        <card-products :product="product"/>
     </article>
   </div>
   <el-pagination

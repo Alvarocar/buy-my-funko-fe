@@ -17,15 +17,15 @@
       </div> 
     </el-col>
   </el-row>
-
+<!-- 
     <div class="comment">
-    <div class="title-comment">
-      <h1 align="left">Opiniones de los usuarios</h1>
-    </div> 
+      <div class="title-comment">
+        <h1 align="left">Opiniones de los usuarios</h1>
+      </div> 
     <h4 align="left">Comentario 1</h4>
     <h4 align="left">Comentario 1</h4>
     <h4 align="left">Comentario 1</h4>
-  </div>
+    </div> -->
   </div>
 </template>
 
@@ -37,7 +37,6 @@ export default defineComponent({
     name: 'ProductDetail',
     data(){
       return{
-        counterInventory: [],
         inventory:5
 
       }
@@ -51,20 +50,10 @@ export default defineComponent({
             type: String,
         },
     },
-    methods: {
-      /**
-       * This method create an arry with the 
-       * the quantity available from inventory 
-       */
-      createdInventoryArray (){
-        for(var i = 1; i <= this.inventory; i++){
-          this.counterInventory.push(i)
-        }
-      },
+    methods: { 
         ...mapActions('product', ['getProductById']),
     },
     beforeMount() {
-        this.createdInventoryArray()
         this.getProductById(Number(this.id))
     },
     computed: {
@@ -72,6 +61,16 @@ export default defineComponent({
             product: 'productSelected',
             status: 'status'
         }),
+         /**
+         * This property create an array with 
+         * the quantity available from the inventory 
+         */
+        counterInventory(){
+          const element = [];
+          for (let i = 1; i <= this.inventory; i++) {
+            element.push(i)
+          }
+          return element}
     },
 })
 </script>

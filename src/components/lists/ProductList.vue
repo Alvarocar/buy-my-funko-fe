@@ -1,7 +1,7 @@
 <template>
     <div class="content">
       <article :key="product.id" v-for="product in products">
-        <card-products :product="product"/>
+         <card-products :product="product"/>
       </article>
     </div>
 </template>
@@ -10,6 +10,7 @@
 import { defineComponent} from 'vue'
 import { mapActions, mapState} from 'vuex'
 import CardProducts from '@/components/cards/CardProducts.vue'
+
 export default defineComponent({
   components: { CardProducts },
    name:'ProductList',
