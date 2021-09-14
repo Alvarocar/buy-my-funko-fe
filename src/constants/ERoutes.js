@@ -4,5 +4,6 @@
  */
 export default {
   HOME: 'Home',
-  CATEGORY: 'Category'
+  CATEGORY: 'Category',
+  SEARCH_PRODUCTS: 'SearchProducts'
 }

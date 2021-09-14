@@ -10,9 +10,10 @@ import ProductByCategoryList from '@/components/lists/ProductByCategoryList.vue'
 import titles from '@/constants/titles'
 import ERoutes from '@/constants/ERoutes'
 import MainLayout from '@/layouts/MainLayout.vue'
-import { ECategoryByProduct } from '@/model/product'
-import { computed, defineComponent, onBeforeMount, watch } from 'vue'
+import { onBeforeRouteUpdate } from 'vue-router'
+import { computed, defineComponent } from 'vue'
 import { useRouter } from 'vue-router'
+import { validateCategoryType } from '@/util/category'
 
 /**
  * The page show a product list by category
@@ -20,42 +21,20 @@ import { useRouter } from 'vue-router'
 export default defineComponent({
   components: { MainLayout, ProductByCategoryList },
   setup() {
-    const { currentRoute, push  } = useRouter()
+    const { currentRoute } = useRouter()
     const category = computed(() => currentRoute.value.params.category)
+    document.title = `${titles.documentTitle} | ${category.value}`
 
-
-    /**
-     * The function validate if category name is in ECategoryByPropduct.
-     * If the validate fail, then returns undefined.
-     * @param {string | string[]} category category name
-     * @returns {string | undefined} category name 
-     */
-    const validateRoute = (category) => {
-      const [ result ] = Object.values(ECategoryByProduct).filter( value => category === value)
-      return result
-    }
-
-    onBeforeMount(() => {
-      const result = validateRoute(category.value)
-      if(!result) {
-        push({name: ERoutes.HOME})
+    onBeforeRouteUpdate(( from, to, next ) => {
+      if ( to.name !== ERoutes.CATEGORY )
+        return
+      const result = validateCategoryType(to.params.category)
+      if (!result) {
+        next({ name: ERoutes.HOME })
         return
       }
-      document.title = `${titles.documentTitle} | ${result.toUpperCase()}`
-    })
-
-   /**
-   * watchs the value of the currentRoute and valid if the category name matches with
-   * the ECategoryByProduct, if doesn't, then the watch will redirects to Home page.
-   */
-    watch(() => currentRoute.value, val => {
-      const category = val.params.category
-      const result = validateRoute(category)
-      if(!result) {
-        push({name: ERoutes.HOME})
-        return
-      }
-      document.title = `${titles.documentTitle} | ${result.toUpperCase()}`
+      document.title = `${titles.documentTitle} | ${to.params.category}`
+      next()
     })
 
     return { category }
