@@ -16,21 +16,17 @@
 import { defineComponent } from 'vue'
 import { mapActions, mapState } from 'vuex'
 import CardProducts from '../cards/CardProducts.vue'
-
 export default defineComponent({
   components: { CardProducts },
   props: {
     category: {
-      required: true,
-      type: String
+      type: String,
+      default: null
     }
   },
-  /**
-   * When the component is mounted the a getProductByCategory action
-   * is executed.
-   */
-  mounted() {
-    this.getProductsByCategory({category: this.category, page: 0})
+  beforeMount() {
+    if (this.category !== null)
+        this.getProductsByCategory({category: this.category, page: 0})
   },
   watch: {
     /**
@@ -38,7 +34,8 @@ export default defineComponent({
      * is dispached.
      */
     category() {
-      this.getProductsByCategory({category: this.category, page: 0})
+      if (this.category !== null)
+        this.getProductsByCategory({category: this.category, page: 0})
     }
   },
   methods: {
@@ -52,7 +49,8 @@ export default defineComponent({
      * @returns {void}
      */
     changePage(page) {
-      this.getProductsByCategory({category: this.category, page: page-1})
+      if (this.category !== null)
+        this.getProductsByCategory({category: this.category, page: page-1})
     }
   },
   computed: {

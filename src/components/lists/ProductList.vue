@@ -4,6 +4,12 @@
          <card-products :product="product"/>
       </article>
     </div>
+    <el-pagination
+    :page-count="page"
+    layout="prev, pager, next"
+    class="pagination"
+    @current-change="changePage"
+    />
 </template>
 <script>
 
@@ -13,18 +19,28 @@ import CardProducts from '@/components/cards/CardProducts.vue'
 
 export default defineComponent({
   components: { CardProducts },
-   name:'ProductList',
-       mounted(){
+  name:'ProductList',
+  mounted() {
     this.getProducts(0)
   },
   methods:{
     ...mapActions ('product',[
       'getProducts'
-    ])
+    ]),
+    /**
+     * The method send getProductsByCategory action to
+     * products module in the store.
+     * @param {number} page
+     * @returns {void}
+     */
+    changePage(page) {
+      this.getProducts(page-1)
+    }
   },
    computed: {
      ...mapState('product',{ 
-       products:(state)=> state.products
+       products:(state)=> state.products,
+       page: (state) => state.pageCount
      })
    }
 })
@@ -38,5 +54,8 @@ export default defineComponent({
     column-gap: 1rem;
     row-gap: 1rem;
     padding: 1rem;
+  }
+  .pagination {
+    margin: 1rem auto;
   }
 </style>

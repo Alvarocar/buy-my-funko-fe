@@ -7,7 +7,7 @@
         </router-link>
       </div>
       <div class="header-top-right">
-        <search-input />
+        <search-input @onSubmit="onSearch"/>
         <button class="cart-button" ><span class="cart-icon"><i class="fas fa-shopping-cart"></i></span></button>
       </div>
     </div>
@@ -22,6 +22,12 @@ import SearchInput from '@/components/forms/SearchInput.vue'
 export default defineComponent({
   components: { CategoriesNavbar, SearchInput },
     name: 'MainHeader',
+    methods: {
+      //Emit
+      onSearch(query) {
+        this.$emit('onSearch', query)
+      }
+    }
 })
 </script>
 <style lang="scss" scoped>

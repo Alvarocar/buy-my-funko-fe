@@ -1,5 +1,5 @@
 <template>
-  <form class="search-box" @submit.prevent="onSubmit">
+  <form class="search-box" ref="form" @submit.prevent="onSubmit">
     <button type="submit" class="btn-search"><i class="fas fa-search"></i></button>
     <input type="search" v-model="form.search" class="input-search" placeholder="Busca un Funko..."/>
   </form>
@@ -45,7 +45,8 @@
          * Emit the submit event when all fields of the form are valid.
          * @property {string} search the search field value in the form.
          */
-        this.$emit('submit', this.form.search)
+        this.$emit('onSubmit', this.form.search)
+        this.$refs.form?.reset()
       },
       /**
        * This method validate all fields in the form.
