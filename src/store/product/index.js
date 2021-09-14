@@ -12,7 +12,10 @@ import ProductRepository from '@/repositories/productRepository'
  * @property {ProductDto[]} productsSearched Products filtered by search query
  * @property {number} pageCount Total pages for main products
  * @property {number} pageCountFiltered Total pages for products filtered by category
+<<<<<<< HEAD
  * @property {null | ProductDto} productSelected is a product that has been filtered by id
+=======
+>>>>>>> ba9c3e3b26b6c8c47ddec6ce6f2469fc415bb665
  * @property {number} pageCountSearch Total pages for products filtered by search query
  */
 
@@ -72,6 +75,7 @@ export default {
       }
     },
 
+<<<<<<< HEAD
     async getProductById({commit},/** @type { number } id of the product */ payload){
       const repo = new ProductRepository()
       try {
@@ -85,6 +89,8 @@ export default {
         throw new Error(error.message)
       }
     },
+=======
+>>>>>>> ba9c3e3b26b6c8c47ddec6ce6f2469fc415bb665
     /**
      * The action gets a product list filtered by text match.
      */
@@ -123,9 +129,12 @@ export default {
     setPageCountFiltered(state, /**@type {number} */ pageCount) {
       state.pageCountFiltered = pageCount
     },
+<<<<<<< HEAD
     setProductSelected(state, /**@type {ProductDto | null}  */ product ){
       state.productSelected = product
     },
+=======
+>>>>>>> ba9c3e3b26b6c8c47ddec6ce6f2469fc415bb665
     setStatus(state, /**@type {'loading' | 'idle' | 'fail'} */ status) {
       state.status = status
     },
