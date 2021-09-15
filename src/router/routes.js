@@ -29,5 +29,10 @@ export const routes = [
     path: '/search',
     component: () => import('@/pages/SearchProducts.vue'),
     name: ERoutes.SEARCH_PRODUCTS
+  },
+  {
+    path: '/sign-up',
+    component: () => import('@/components/forms/SignUp.vue'),
+    name: ERoutes.SIGN_UP
   }
 ]

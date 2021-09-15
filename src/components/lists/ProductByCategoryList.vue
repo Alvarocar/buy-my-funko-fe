@@ -1,23 +1,27 @@
 <template>
-  <div class="content">
+  <spinner v-if="status ==='loading'"/>
+  <div v-if="status === 'idle'">
+    <div class="content">
     <article :key="product.id" v-for="product in products">
         <card-products :product="product"/>
     </article>
-  </div>
-  <el-pagination
+    </div>
+    <el-pagination
     :page-count="pageCount"
     layout="prev, pager, next"
     class="pagination"
     @current-change="changePage"
   />
+  </div>
 </template>
 
 <script>
 import { defineComponent } from 'vue'
 import { mapActions, mapState } from 'vuex'
 import CardProducts from '../cards/CardProducts.vue'
+import Spinner from '../loaders/Spinner.vue'
 export default defineComponent({
-  components: { CardProducts },
+  components: { CardProducts, Spinner },
   props: {
     category: {
       type: String,
@@ -57,6 +61,7 @@ export default defineComponent({
     ...mapState('product', {
       products: (state) => state.productsFiltered,
       pageCount: (state) => state.pageCountFiltered,
+      status: (state) => state.status
     })
   }
 })
