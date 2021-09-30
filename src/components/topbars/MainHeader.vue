@@ -12,7 +12,7 @@
             <span class="door-icon"><i class="fas fa-door-open"></i></span>Registrar
           </button>
 
-          <button class="register-button" @click="register">
+          <button class="register-button" @click="login">
             <span class="door-icon"><i class="fas fa-sign-in-alt"></i></span>Ingresar
           </button>
         </div>
@@ -44,6 +44,12 @@ export default defineComponent({
       */
       register() {
         this.$router.push({ name: ERoutes.SIGN_UP })
+    },
+    /**
+      * Sent to register page 
+      */
+      login() {
+        this.$router.push({ name: ERoutes.LOG_IN })
     }
     }
 })

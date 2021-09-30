@@ -7,5 +7,6 @@ export default {
   CATEGORY: 'Category',
   PRODUCT:'Product',
   SEARCH_PRODUCTS: 'SearchProducts',
-  SIGN_UP:'SignUp'
+  SIGN_UP:'SignUp',
+  LOG_IN: 'Login'
 }
