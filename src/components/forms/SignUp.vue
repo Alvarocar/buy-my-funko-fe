@@ -5,23 +5,23 @@ import ProductBySearchList from '@/components/lists/ProductBySearchList.vue';
       <img src="@/assets/777771.png" class="image"/>
       <el-form class="register-form" :rules="rules" :model="form">
         <h1 class="text-title">Registro</h1>
-          <p>
-          <el-form-item label="correo" prop="email">
+          <p class="containerInput">
+          <el-form-item label="correo" class="text" prop="email">
             <el-input type="text" class="input-register" id="email"  v-model="form.email"/>
           </el-form-item>
         </p>
-        <p>
-          <el-form-item  label="nombre" prop="name">
+        <p class="containerInput">
+          <el-form-item  label="nombre" class="text" prop="name">
              <el-input type="text" class="input-register" id="name" v-model="form.name"/>
           </el-form-item>
         </p>
-        <p>
-        <el-form-item label="Contraseña" prop="password">
+        <p class="containerInput">
+        <el-form-item label="Contraseña" class="text" prop="password">
           <el-input type="password" class="input-register" id="password" v-model="form.password"/>
         </el-form-item>
         </p>
-        <p>
-          <el-form-item label="Confirmar contraseña" prop="confirmPassword">
+        <p class="containerInput">
+          <el-form-item label="Confirmar contraseña" class="text" prop="confirmPassword">
             <el-input type="password" class="input-register" id="passwordConfirm" v-model="form.confirmPassword"/>
           </el-form-item>
         </p>
@@ -93,7 +93,10 @@ export default {
   margin-right: 70px;
   display: inline-block;
   color: white;
-  margin-left: 20%;
+  margin-left: 10%;
+  min-width: 30%;
+  padding: 10px;
+  align-items: left;
   }
   .el-form-item__error{
     font-size: 1rem;
@@ -101,6 +104,10 @@ export default {
   }
 </style>
 <style lang="scss" scoped>
+.containerInput{
+  display: flex;
+  align-items: stretch;
+}
 .register-div{
   display: flex;
 	flex-direction: column;
@@ -123,25 +130,21 @@ export default {
   min-height: 500px;
   width: 40%;
   box-shadow:10px 5px 5px rgb(214, 214, 214);
-  text-align: start;
+  
   }
 .text-title{
   font-size: 40px;
   color: white;
   font-weight: bold;
-  margin-left: 45%;
 }
-// .text{
-//   font-size: 25px;
-//   margin: 20px;
-//   display: inline-block;
-//   color: white;
-//   margin-left: 10%;
-//   width: 20%;
-// }
+.text{
+  height: 35px;
+  margin: 1%;
+}
+
 .input-register{
   background-color: white;
-  width: 30%;
+  min-width: 25rem;
   height: 35px;
   border-color: white;
   border-radius: 5px;
@@ -155,7 +158,7 @@ export default {
   border-color: #e47aaa;
   font-size: 20px;
   border-radius: 10px;
-  margin-left: 25%;
+  margin-left: 5%;
           &:hover {
             background-color:#e47aaa ;
             color: white;
@@ -184,7 +187,6 @@ export default {
   border-color: transparent;
   font-size: 20px;
   border-radius: 10px;
-  margin-left: 40%;
   margin-bottom: 2%;
           &:hover {
             background-color:transparent ;
